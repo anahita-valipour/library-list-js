@@ -1,0 +1,781 @@
+@font-face {
+  font-family: "IranYekanX";
+  src: url("./fonts/IRANYekanX-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IranYekanX";
+  src: url("./fonts/IRANYekanX-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fffdf8;
+  --text: #393330;
+  --muted: #81766e;
+  --line: #e9e1d6;
+  --accent: #994652;
+  --accent-dark: #7d3440;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #f1ece3;
+}
+
+body {
+  width: min(780px, calc(100% - 32px));
+  margin: 24px auto;
+  padding: 24px 30px 18px;
+  border: 1px solid #e4dccc;
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--text);
+  font-family: "IranYekanX", Tahoma, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  box-shadow:
+    0 4px 0 -1px #e8dfd0,
+    0 8px 0 -2px #f9f5ed,
+    0 16px 40px #51402b0c;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 180ms,
+    border-color 180ms,
+    transform 180ms;
+}
+
+button:focus-visible {
+  outline: 3px solid #99465255;
+  outline-offset: 3px;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+
+h1 {
+  position: relative;
+  margin: 0 0 18px;
+  padding: 0 0 16px 60px;
+  border-bottom: 1px solid var(--line);
+  color: #42342f;
+  font-size: 27px;
+  letter-spacing: -1px;
+  line-height: 1.7;
+}
+
+h1::before {
+  content: "برای تمام دنیاهایی که هنوز نخوانده‌ایم";
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 7px;
+  width: 36px;
+  height: 48px;
+  border: 1px solid #994652;
+  border-right: 6px solid #7d3440;
+  border-radius: 3px 5px 5px 3px;
+  background:
+    linear-gradient(#ead7bc, #ead7bc) center 14px / 18px 2px no-repeat,
+    linear-gradient(#ead7bc, #ead7bc) center 21px / 13px 2px no-repeat,
+    #994652;
+  box-shadow: -4px 4px 0 #e9dfd0;
+  transform: rotate(-9deg);
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  color: #65564d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* افزودن کتاب */
+
+.add-book-row {
+  display: flex;
+  align-items: stretch;
+  gap: 9px;
+}
+
+#book-name,
+#search-book {
+  min-width: 0;
+  height: 44px;
+  border: 1px solid #ded5c8;
+  border-radius: 7px;
+  background: #fffefa;
+  color: var(--text);
+  transition:
+    border-color 180ms,
+    box-shadow 180ms;
+}
+
+#book-name {
+  flex: 1;
+  width: 100%;
+  padding: 0 13px;
+}
+
+#book-name::placeholder,
+#search-book::placeholder {
+  color: #968b80;
+  font-size: 12px;
+  opacity: 1;
+}
+
+#book-name:focus,
+#search-book:focus {
+  outline: none;
+  border-color: #af7c70;
+  box-shadow: 0 0 0 3px #99465218;
+}
+
+#add-book {
+  flex-shrink: 0;
+  min-width: 120px;
+  min-height: 44px;
+  padding: 8px 15px;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  background: var(--accent);
+  color: #fffaf4;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#add-book:hover {
+  border-color: var(--accent-dark);
+  background: var(--accent-dark);
+}
+
+#message {
+  min-height: 22px;
+  margin: 5px 0 7px;
+  color: var(--accent);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+
+
+.book-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.total-books {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #726359;
+  font-size: 12px;
+}
+
+#book-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 29px;
+  min-height: 27px;
+  padding: 0 7px;
+  border: 1px solid #e7ddcf;
+  border-radius: 5px;
+  background: #f4eee4;
+  color: #695343;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* علاقه‌مندی‌ها */
+
+.favorite-books {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+}
+
+.favorite-heart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 1px solid #ead2d3;
+  border-radius: 8px;
+  background: #fbf0ef;
+  color: var(--accent);
+  font-size: 27px;
+  line-height: 1;
+}
+
+.favorite-heart:hover {
+  border-color: #c98f94;
+  background: #f6e3e2;
+}
+
+#favorite-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  border: 2px solid var(--paper);
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.favorites-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 10;
+  width: min(290px, calc(100vw - 64px));
+  padding: 16px;
+  border: 1px solid #e4d4ca;
+  border-radius: 9px;
+  background: var(--paper);
+  text-align: right;
+  box-shadow: 0 12px 30px #4933261a;
+}
+
+.favorites-panel h2 {
+  margin: 0 0 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--accent);
+  font-size: 13px;
+}
+
+#favorite-book-list {
+  display: grid;
+  gap: 7px;
+  max-height: min(260px, 45vh);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+#favorite-book-list li {
+  padding: 9px 11px;
+  border-right: 3px solid #c78f91;
+  border-radius: 4px;
+  background: #f8efeb;
+  color: #6c4b48;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+#favorite-book-list:empty::before {
+  content: "هنوز کتابی به علاقه‌مندی‌ها اضافه نکردی";
+  display: block;
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+
+
+#search-book {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin: 0 0 12px;
+  padding: 0 40px 0 13px;
+  background-color: #f9f6f0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23918376' stroke-width='1.7' stroke-linecap='round'%3E%3Ccircle cx='10.8' cy='10.8' r='6.8'/%3E%3Cpath d='m16 16 4.5 4.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  background-size: 18px;
+  font-size: 12px;
+}
+
+
+
+#book-list {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  counter-reset: books;
+}
+
+#book-list:empty {
+  position: relative;
+}
+
+#book-list:empty::before {
+  content: "اولین کتاب این قفسه چی باشه؟";
+  display: block;
+  padding: 100px 14px 18px;
+  border: 1px dashed #d8c9b6;
+  border-radius: 8px;
+  background: #faf7f0;
+  color: #8b7765;
+  font-size: 12px;
+  text-align: center;
+}
+
+#book-list:empty::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: 130px;
+  height: 80px;
+  background: url("./images/books.svg") center / contain no-repeat;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* کارت کتاب */
+
+#book-list li {
+  --spine: #ae7378;
+  --cover: #f7ebea;
+
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) repeat(4, auto);
+  align-items: center;
+  gap: 8px;
+  min-height: 74px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-right: 4px solid var(--spine);
+  border-radius: 6px;
+  background: #fffefa;
+  counter-increment: books;
+  transition:
+    transform 180ms,
+    box-shadow 180ms,
+    border-color 180ms;
+}
+
+#book-list li:nth-child(3n + 2) {
+  --spine: #b78c58;
+  --cover: #f8efdf;
+}
+
+#book-list li:nth-child(3n) {
+  --spine: #7b879f;
+  --cover: #edf0f6;
+}
+
+#book-list li::before {
+  content: counter(books, decimal-leading-zero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 41px;
+  border: 1px solid var(--spine);
+  border-right: 4px solid var(--spine);
+  border-radius: 2px 4px 4px 2px;
+  background: var(--cover);
+  color: #756054;
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.title-book {
+  min-width: 0;
+  padding-left: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.title-book.read {
+  color: #93857a;
+  text-decoration: line-through;
+  text-decoration-color: #b19a87;
+  text-decoration-thickness: 1px;
+}
+
+
+
+#book-list button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 36px;
+  min-height: 38px;
+  padding: 6px 9px;
+  border: 1px solid #e5dccf;
+  border-radius: 6px;
+  background: #f7f2e9;
+  color: #77624e;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+#book-list button:hover {
+  border-color: #cbbba7;
+  background: #efe6d8;
+}
+
+#book-list .edit {
+  border-color: #dddfe8;
+  background: #f0f1f6;
+  color: #68718b;
+}
+
+#book-list .edit:hover {
+  border-color: #aeb6cb;
+  background: #e7eaf3;
+}
+
+#book-list .delet {
+  border-color: #edd8d4;
+  background: #fcf0ed;
+  color: #a15f58;
+}
+
+#book-list .delet:hover {
+  border-color: #d4a59e;
+  background: #f8e3df;
+}
+
+#book-list button:last-child {
+  width: 38px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+  color: #c6b7ad;
+  font-size: 24px;
+  line-height: 1;
+}
+
+#book-list button:last-child:hover {
+  background: #faeae8;
+}
+
+#book-list button.favorite {
+  background: #fbefed;
+}
+
+
+
+#undo-btn,
+#read-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  max-width: 100%;
+  min-height: 40px;
+  margin: 0 0 6px 6px;
+  padding: 8px 12px;
+  border: 1px solid #dfd4c5;
+  border-radius: 6px;
+  background: #f4eee5;
+  color: #78614e;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+#undo-btn:hover {
+  border-color: #bfa98e;
+  background: #ece2d3;
+}
+
+#read-btn {
+  border-color: #e6cdd0;
+  background: #f8eeed;
+  color: #94525b;
+}
+
+#read-btn:hover {
+  border-color: #c4969d;
+  background: #f2e1e2;
+}
+
+/* آیکون‌ها */
+
+#undo-btn::before,
+#read-btn::before,
+#book-list .edit::before,
+#book-list .delet::before {
+  content: "";
+  display: block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  pointer-events: none;
+}
+
+#undo-btn::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4 4 9l5 5'/%3E%3Cpath d='M4 9h10a6 6 0 0 1 0 12h-3'/%3E%3C/svg%3E");
+}
+
+#book-list .edit::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5 4 4M4 20l4.5-1 12-12a2.8 2.8 0 0 0-4-4l-12 12L4 20Z'/%3E%3C/svg%3E");
+}
+
+#book-list .delet::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6'/%3E%3C/svg%3E");
+}
+
+#read-btn::before {
+  width: 18px;
+  height: 18px;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6C9 4 5 4 2 5v14c3-1 7-1 10 1 3-2 7-2 10-1V5c-3-1-7-1-10 1Zm0 0v14'/%3E%3Cpath d='m15 11 2 2 3-4'/%3E%3C/svg%3E");
+}
+
+
+
+@media (hover: hover) {
+  #book-list li:hover {
+    transform: translateY(-2px);
+    border-top-color: #d4c6b4;
+    border-bottom-color: #d4c6b4;
+    box-shadow: 0 5px 12px #53412b09;
+  }
+}
+
+
+
+@media (max-width: 720px) {
+  body {
+    width: calc(100% - 28px);
+    margin: 18px auto;
+    padding: 22px;
+  }
+
+  #book-list li {
+    grid-template-columns: 30px repeat(4, minmax(0, 1fr));
+    gap: 10px 8px;
+  }
+
+  #book-list li::before {
+    grid-row: 1 / 3;
+    align-self: start;
+    margin-top: 2px;
+  }
+
+  .title-book {
+    grid-column: 2 / -1;
+    padding: 0;
+  }
+
+  #book-list button {
+    width: 100%;
+    min-height: 44px;
+    padding: 6px 4px;
+  }
+
+  #book-list button:last-child {
+    width: 100%;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  body {
+    width: calc(100% - 20px);
+    margin: 12px auto 20px;
+    padding: 18px 14px 14px;
+    border-radius: 9px;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    padding-left: 46px;
+    padding-bottom: 15px;
+    font-size: 23px;
+  }
+
+  h1::before {
+    font-size: 10px;
+    line-height: 1.9;
+  }
+
+  h1::after {
+    top: 13px;
+    left: 3px;
+    width: 29px;
+    height: 40px;
+    border-right-width: 5px;
+    background-size:
+      14px 2px,
+      10px 2px,
+      auto;
+  }
+
+  .add-book-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #book-name {
+    flex: auto;
+    height: 46px;
+  }
+
+  #add-book {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  #message {
+    font-size: 11px;
+  }
+
+  .book-stats {
+    gap: 10px;
+    padding: 9px 0;
+  }
+
+  .total-books {
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  #search-book {
+    height: 44px;
+  }
+
+  #book-list li {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 6px;
+    padding: 11px 9px;
+  }
+
+  #book-list li::before {
+    display: none;
+  }
+
+  .title-book {
+    grid-column: 1 / -1;
+    font-size: 13px;
+  }
+
+  #book-list button {
+    min-width: 0;
+    gap: 4px;
+    padding: 6px 3px;
+    font-size: 10px;
+  }
+
+  #book-list .edit::before,
+  #book-list .delet::before {
+    width: 13px;
+    height: 13px;
+  }
+
+  #undo-btn,
+  #read-btn {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    margin: 0 0 8px;
+  }
+
+  .favorites-panel {
+    width: min(280px, calc(100vw - 60px));
+    padding: 14px;
+  }
+}
+
+
+
+@media (max-width: 360px) {
+  h1 {
+    padding-left: 40px;
+    font-size: 21px;
+  }
+
+  h1::before {
+    font-size: 9px;
+  }
+
+  #book-list li {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #book-list button {
+    font-size: 11px;
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  input,
+  #book-list li {
+    transition: none;
+  }
+
+  #book-list li:hover {
+    transform: none;
+  }
+
+  #book-list:empty::after {
+    background-image: url("./images/books-still.svg");
+  }
+}

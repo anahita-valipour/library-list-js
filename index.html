@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لیست کتاب‌های من</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h1>لیست کتاب‌های من</h1>
+
+    <label for="book-name">نام کتاب</label>
+
+    <div class="add-book-row">
+      <input
+        id="book-name"
+        type="text"
+        placeholder="مثلاً شازده کوچولو"
+      />
+
+      <button id="add-book" type="button">افزودن کتاب</button>
+    </div>
+
+    <p id="message" role="status"></p>
+
+    <div class="book-stats">
+      <p class="total-books">
+        <span>تعداد کتاب‌ها:</span>
+        <span id="book-count">0</span>
+      </p>
+
+      <div class="favorite-books">
+        <button
+          class="favorite-heart"
+          type="button"
+          aria-label="نمایش کتاب‌های مورد علاقه"
+          aria-controls="favorites-panel"
+        >
+          ♥
+        </button>
+
+        <span
+          id="favorite-count"
+          aria-live="polite"
+          aria-label="تعداد علاقه‌مندی‌ها"
+        >0</span>
+
+        <div id="favorites-panel" class="favorites-panel" hidden>
+          <h2>کتاب‌های مورد علاقه</h2>
+          <ul id="favorite-book-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <input
+      id="search-book"
+      type="text"
+      placeholder="جستجوی کتاب"
+      aria-label="جستجوی کتاب"
+    />
+    <ul id="book-list"></ul>
+    <button id="undo-btn">برگرداندن کتاب حذف‌شده</button>
+    <button id="read-btn"> کتاب خوانده شده</button>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
