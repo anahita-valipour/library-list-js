@@ -18,7 +18,7 @@ let editTittle = null;
 let countFav = 0;
 let books = [];
 let deletedBooks = [];
-let onlyRead =false;
+let onlyRead = false;
 // title ,isRead,id
 
 //
@@ -39,27 +39,36 @@ addBook.addEventListener("click", () => {
 booklist.addEventListener("click", (e) => {
   let liItem = e.target.closest("li");
 
-
-
   if (e.target.classList.contains("delet")) {
     const id = Number(liItem.dataset.id);
 
     const undoBook = books.find((book) => book.id === id);
 
-
-
     deletedBooks.push(undoBook);
     books = books.filter((book) => book.id !== id);
 
     liItem.remove();
+    bookName.value = "";
+    
+    showheart();
+    if (editTittle && editTittle.closest("li") === liItem) {
+  editTittle = null;
+  addBook.textContent = "افزودن کتاب";
+}
+    countFav = books.filter((book) => book.isFavorite).length;
+    favoriteCount.textContent = countFav;
     bookCount.textContent = books.length;
   }
 });
 
 readBtn.addEventListener("click", () => {
-   onlyRead = !onlyRead;
+    const query = searchBook.value.trim().toLowerCase();
+  let machedBook = books.filter((book) =>
+    book.title.toLowerCase().includes(query),
+  );
+  onlyRead = !onlyRead;
   if (onlyRead) {
-    const machedBook = books.filter((book) => book.isRead === true);
+    machedBook = machedBook.filter((book) => book.isRead === true);
     arrayBook = [...booklist.children];
     arrayBook.forEach((li) => {
       const id = Number(li.dataset.id);
@@ -86,8 +95,7 @@ undoBtn.addEventListener("click", () => {
 
   bookCount.textContent = books.length;
   showheart();
-  countFav = books.filter((book) => book.isFavorite).length;
-  favoriteCount.textContent = countFav;
+  countFavourite();
 });
 
 booklist.addEventListener("click", (e) => {
@@ -196,8 +204,7 @@ function creatBook(existingBook = null) {
 
     showheart();
 
-    countFav = books.filter((item) => item.isFavorite).length;
-    favoriteCount.textContent = countFav;
+    countFavourite();
   });
 
   if (!existingBook) {
@@ -226,11 +233,20 @@ function showheart() {
     favoriteBookList.appendChild(li);
   });
 }
+function countFavourite() {
+  countFav = books.filter((book) => book.isFavorite).length;
+  favoriteCount.textContent = countFav;
+}
 function applySearch() {
   const query = searchBook.value.trim().toLowerCase();
   let machedBook = books.filter((book) =>
     book.title.toLowerCase().includes(query),
   );
+
+  if (onlyRead) {
+
+    machedBook = machedBook.filter((book) => book.isRead === true);
+  }
   let arrayBook = [...booklist.children];
 
   arrayBook.forEach((li) => {
